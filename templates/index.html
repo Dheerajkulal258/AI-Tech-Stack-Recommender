@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Tech Stack Recommender</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<div class="container">
+
+    <div class="header">
+        <h1>
+            <i class="fas fa-brain"></i>
+            AI Tech Stack Recommender
+        </h1>
+
+        <p>
+            Discover the best career path based on your skills
+        </p>
+    </div>
+
+    <form method="POST">
+
+        <div class="input-group">
+
+            <textarea
+            name="skills"
+            placeholder="Enter skills like Python, SQL, AWS, Docker, React..."
+            required></textarea>
+
+        </div>
+
+        <button type="submit">
+            <i class="fas fa-magic"></i>
+            Generate Recommendations
+        </button>
+
+    </form>
+
+    {% if recommendations %}
+
+    <div class="results">
+
+        <h2>
+            <i class="fas fa-chart-line"></i>
+            Top Career Matches
+        </h2>
+
+        {% for item in recommendations %}
+
+        <div class="card">
+
+            <div class="top">
+
+                <h3>{{ item.role }}</h3>
+
+                <span>
+                    {{ item.score }}%
+                </span>
+
+            </div>
+
+            <div class="progress">
+
+                <div class="progress-fill"
+                     style="width: {{ item.score }}%">
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>
